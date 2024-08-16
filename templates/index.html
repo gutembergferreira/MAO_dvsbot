@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Mensagens no Google Chats</title>
+</head>
+<body>
+    <a href="{{ url_for('webhooks') }}">Webhooks</a>
+    <h1>Agendar Mensagens</h1>
+    <form method="POST" action="{{ url_for('schedule_message_route') }}">
+        <label for="message">Mensagem:</label>
+        <input type="text" id="message" name="message" required>
+        <br>
+        <label for="days_of_week">Dias da Semana:</label>
+        <select multiple id="days_of_week" name="days_of_week">
+            <option value="monday">Segunda-feira</option>
+            <option value="tuesday">Terça-feira</option>
+            <option value="wednesday">Quarta-feira</option>
+            <option value="thursday">Quinta-feira</option>
+            <option value="friday">Sexta-feira</option>
+            <option value="saturday">Sábado</option>
+            <option value="sunday">Domingo</option>
+        </select>
+        <br>
+        <label for="send_time">Horário de Envio:</label>
+        <input type="time" id="send_time" name="send_time" required>
+        <br>
+        <label for="webhook_id">Webhook:</label>
+        <select name="webhook_id" id="webhook_id" required>
+            {% for webhook in webhooks %}
+            <option value="{{ webhook.id }}">{{ webhook.name }}</option>
+            {% endfor %}
+        </select><br>  
+        <button type="submit">Agendar</button>
+    </form>
+
+    <h2>Mensagens Agendadas:</h2>
+    <ul>
+        {% for message in messages %}
+            <li>
+                {{ message.message }} - {{ message.days_of_week }} às {{ message.send_time }} Webhook: {{ message.webhook.name }}
+                <a href="{{ url_for('edit_message', message_id=message.id) }}" style="text-decoration:none;">
+                    <button type="button">Editar</button>
+                </a>
+                <form method="POST" action="{{ url_for('delete_message', message_id=message.id) }}" style="display:inline;">
+                    <input type="submit" value="Excluir">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<h2>Gerenciar Webhooks</h2>
+<a href="{{ url_for('add_webhook') }}">Adicionar Webhook</a><br>
+<a href="{{ url_for('index') }}">Agendamento de Mensagens</a>
+<ul>
+    {% for webhook in webhooks %}
+    <li>{{ webhook.name }} - <a href="{{ url_for('edit_webhook', webhook_id=webhook.id) }}">Editar</a> | <form method="POST" action="{{ url_for('delete_webhook', webhook_id=webhook.id) }}" style="display:inline;"><input type="submit" value="Excluir"></form></li>
+    {% endfor %}
+</ul>

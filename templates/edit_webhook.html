@@ -1,0 +1,10 @@
+<h2>Editar Webhook</h2>
+<form method="POST">
+    <label for="name">Nome do Webhook:</label>
+    <input type="text" name="name" id="name" value="{{ webhook.name }}" required><br>
+    
+    <label for="url">URL do Webhook:</label>
+    <input type="url" name="url" id="url" value="{{ webhook.url }}" required><br>
+    
+    <input type="submit" value="Salvar">
+</form>

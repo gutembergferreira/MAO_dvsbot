@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Mensagem</title>
+</head>
+<body>
+    <h1>Editar Mensagem</h1>
+    <form method="POST">
+        <label for="message">Mensagem:</label>
+        <input type="text" id="message" name="message" value="{{ message.message }}" required>
+        <br>
+        
+        <label for="days_of_week">Dias da Semana:</label>
+        <select multiple id="days_of_week" name="days_of_week">
+            {% for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+                <option value="{{ day }}" {% if day in message.days_of_week.split(',') %}selected{% endif %}>{{ day|capitalize }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        
+        <label for="send_time">Horário de Envio:</label>
+        <input type="time" id="send_time" name="send_time" value="{{ message.send_time }}" required>
+        <br>
+        
+        <label for="webhook_id">Webhook:</label>
+        <select name="webhook_id" id="webhook_id" required>
+            {% for webhook in all_webhooks %}
+                <option value="{{ webhook.id }}" {% if webhook.id == message.webhook_id %}selected{% endif %}>{{ webhook.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    
+    <a href="{{ url_for('index') }}">Voltar</a>
+</body>
+</html>
