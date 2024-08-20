@@ -1,8 +1,76 @@
-<h2>Gerenciar Webhooks</h2>
-<a href="{{ url_for('add_webhook') }}">Adicionar Webhook</a><br>
-<a href="{{ url_for('index') }}">Agendamento de Mensagens</a>
-<ul>
-    {% for webhook in webhooks %}
-    <li>{{ webhook.name }} - <a href="{{ url_for('edit_webhook', webhook_id=webhook.id) }}">Editar</a> | <form method="POST" action="{{ url_for('delete_webhook', webhook_id=webhook.id) }}" style="display:inline;"><input type="submit" value="Excluir"></form></li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block title %}Administrate WebHooks{% endblock %}
+{% block titlepage %}Administrate WebHooks{% endblock %}
+
+{% block content %}
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Add New Bot (Webhook)
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <form method="POST" action="{{ url_for('add_webhook') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Bot Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL do Webhook:</label>
+                        <input type="url" class="form-control" id="url" name="url" value="https://" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Bot</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4">
+
+<h2>List of Bots</h2>
+    <table
+        data-toggle="table"
+        data-search="true"
+        data-show-columns="true"
+        data-minimum-count-columns="2"
+        data-show-pagination-switch="true"
+        data-pagination="true"
+        data-id-field="id"
+        data-page-list="[10, 25, 50, 100, all]"
+    >
+        <thead class="table-dark">
+                <th class="text-center" data-width="10" data-field="id" data-valign="middle">ID</th>
+                <th class="text-center" data-width="100" data-field="botname" data-valign="middle">Bot Name</th>
+                <th class="text-center" data-width="300" data-field="url" data-valign="middle">URL</th>
+                <th class="text-center" data-width="10" data-field="edit" data-valign="middle" >Edit</th>
+                <th class="text-center" data-width="10" data-field="delete" data-valign="middle" >Delete</th>
+        </thead>
+        <tbody>
+            {% for webhook in webhooks %}
+            <tr id="tr-id-{{ webhook.id }}" class="tr-class-{{ loop.index }}"></tr>
+                <td>{{ webhook.id }}</td>
+                <td>{{ webhook.name }}</td>
+                <td>{{ webhook.url }}</td>
+                <td class="text-center">
+                    <a href="{{ url_for('edit_webhook', webhook_id=webhook.id) }}" style="text-decoration:none;">
+                        <button type="button" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
+                            <i class="material-icons" style="color: green; font-size: 25px;">edit</i>
+                        </button>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <form method="POST" action="{{ url_for('delete_webhook', webhook_id=webhook.id) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this bot?');">
+                        <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
+                            <i class="material-icons" style="color: red; font-size: 25px;">delete_forever</i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

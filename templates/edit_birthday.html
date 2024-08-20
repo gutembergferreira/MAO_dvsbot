@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Administrate Birthdays{% endblock %}
+{% block titlepage %}Edit birthday user: {{birthday.name}}{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('edit_birthday', birthday_id=birthday.id) }}">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ birthday.name }}" required>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="active" class="form-label">Active:</label>
+            <select id="active" name="active" class="form-select" required>
+                <option value="true" {% if birthday.active == True %}selected{% endif %}>TRUE</option>
+                <option value="false" {% if birthday.active == False %}selected{% endif %}>FALSE</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="birthday_date" class="form-label">Birthday Date:</label>
+            <input type="date" class="form-control" id="birthday_date" name="birthday_date" value="{{ birthday.birthday_date}}" required>
+        </div>
+    </div>
+    <label for="google_chat_id" class="form-label">Google Chat ID:</label>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="google_chat_id" name="google_chat_id" value="{{ birthday.google_chat_id }}" required>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success" style="width: 100%;">Update Birthday</button>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}
