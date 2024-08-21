@@ -181,6 +181,11 @@
 {% block content %}
            <form method="POST" action="{{ url_for('edit_message', message_id=message.id) }}">
               <div class="row">
+                <div>
+                  <label for="sumary" class="form-label">Summary</label>
+                  <input type="text" name="summary" id="summary" class="form-control" readonly value="{{ message.summary }}">
+                  <br>
+                </div>
                   <!-- Primeira Coluna -->
                   <div class="col-md-6">
                       <!-- Seleção do Bot -->

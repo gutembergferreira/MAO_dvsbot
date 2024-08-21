@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ job.id }}</td>
                 <td>{{ job.name }}</td>
-                <td>{{ job.next_run_time }}</td>
+                <td>{{ job.next_run_time.strftime('%d/%m/%Y %H:%M') }}</td>
             </tr>
             {% endfor %}
         </tbody>

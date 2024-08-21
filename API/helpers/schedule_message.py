@@ -1,4 +1,5 @@
 from app import *
+import os
 from API.models.webhooks_models import Webhook
 from API.models.messages_models import Message
 
@@ -37,10 +38,10 @@ def schedule_message(message):
         # Create the cron trigger with the correct day and time
         trigger = CronTrigger(day_of_week=days, hour=hour, minute=minute)
         # Schedule the message with the correct webhook URL
-        job = scheduler.add_job(func=send_message_to_google_chats, trigger=trigger, args=[message.message, webhook.url])
+        job = scheduler.add_job(func=send_message_to_google_chats, name=(message.webhook.name+'-'+message.summary), trigger=trigger, args=[message.message, webhook.url])
         message.scheduler_job_id = job.id
         db.session.commit()
-        save_logger('ADDITION/EDIT','Scheduler added successfully','SCHEDULER')
+        save_logger('ADDITION/EDIT','Scheduler added successfully','SCHEDULER', message.summary)
     except ValueError as e:
         print(f"Erro ao agendar a mensagem: {e}")
     except KeyError as e:
@@ -65,16 +66,15 @@ def get_weekly_jobs():
     return jobs
 
 
-
 def get_memory_usage():
     process = psutil.Process()
     mem_info = process.memory_info()
     return mem_info.rss  # Memory usage in bytes
 
-import os
 
 def get_database_size(db_path):
     return os.path.getsize(db_path)  # Tamanho em bytes
+
 
 def load_jobs_on_startup():
     messages = Message.query.filter_by(active=True).all()

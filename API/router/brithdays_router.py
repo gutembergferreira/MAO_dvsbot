@@ -11,7 +11,7 @@ def add_birthday():
         new_birthday = Birthday(name=name, active=active, birthday_date=birthday_date, google_chat_id=google_chat_id)
         db.session.add(new_birthday)
         db.session.commit()
-        save_logger('ADDITION','Birthdays added successfully','BIRTHDAY')
+        save_logger('ADDITION','Birthdays added successfully','BIRTHDAY','Birthdays '+ name )
         return redirect(url_for('birthdays'))
     
     return render_template('add_birthday.html')
@@ -26,7 +26,7 @@ def edit_birthday(birthday_id):
         birthday.google_chat_id = request.form.get('google_chat_id')
         
         db.session.commit()
-        save_logger('EDIT','Birthdays edited successfully','BIRTHDAY')
+        save_logger('EDIT','Birthdays edited successfully','BIRTHDAY','Birthdays '+ birthday.name)
         return redirect(url_for('birthdays'))
     
     return render_template('edit_birthday.html', birthday=birthday)
@@ -36,5 +36,5 @@ def delete_birthday(birthday_id):
     birthday = Birthday.query.get_or_404(birthday_id)
     db.session.delete(birthday)
     db.session.commit()
-    save_logger('DELETE','Birthdays deleted successfully','BIRTHDAY')
+    save_logger('DELETE','Birthdays deleted successfully','BIRTHDAY', birthday.summary)
     return redirect(url_for('birthdays'))

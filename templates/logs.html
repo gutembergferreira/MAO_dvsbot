@@ -76,23 +76,23 @@
         <table class="">
             <thead>
                 <tr>
-                    <th style="width: 28%;">Time Data</th>
+                    <th style="width: 18%;">Time Data</th>
                     <th style="width: 12%;">User/IP</th>
                     <th style="width: 12%;">Feature</th>
                     <th style="width: 12%;">Action</th>
                     <th style="width: 30%;">Response</th>
-                    <th>Log ID</th>
+                    <th style="width: 30%;">Summary</th>
                 </tr>
             </thead>
             <tbody>
                 {% for log in logs %}
                 <tr>
-                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.timestamp.strftime('%d/%m/%Y %H:%M:%S') }}</td>
                     <td>{{ log.user }}</td>
                     <td>{{ log.feature }}</td>
                     <td>{{ log.action }}</td>
                     <td>{{ log.response }}</td>
-                    <td>{{ log.id }}</td>
+                    <td>{{ log.summary }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
