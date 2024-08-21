@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datetime import datetime 
+from datetime import datetime,timedelta
 import datetime as dt
 import requests
 from google.oauth2 import service_account
@@ -8,6 +8,7 @@ from apscheduler.triggers.cron import CronTrigger
 from flask_sqlalchemy import SQLAlchemy
 import os
 from pytz import utc
+import psutil
 
 app = Flask(__name__)
 
@@ -33,18 +34,20 @@ credentials = service_account.Credentials.from_service_account_file(
 scheduler = BackgroundScheduler()
 scheduler.start()
 
+
 if __name__ == '__main__':
     app.run(debug=True)
 
 from API.helpers.logger_save import save_logger
-from API.helpers.schedule_message import schedule_message,send_message_to_google_chats
+from API.helpers.schedule_message import get_database_size, get_memory_usage, load_jobs_on_startup,schedule_message,send_message_to_google_chats,get_scheduler_status,get_weekly_jobs
+
 from API.models.webhooks_models import Webhook
 from API.models.messages_models import Message
 from API.models.birthdays_models import Birthday
 from API.models.logs_models import Log
 
-from API.router import webhooks_router
-from API.router import messages_router
-from API.router import htmls_router
-from API.router import brithdays_router
-from API.router import schedule_router
+from API.router import webhooks_router,messages_router,htmls_router,brithdays_router,schedule_router
+
+with app.app_context():
+    load_jobs_on_startup()
+    

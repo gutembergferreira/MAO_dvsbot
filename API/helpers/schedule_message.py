@@ -1,5 +1,6 @@
 from app import *
 from API.models.webhooks_models import Webhook
+from API.models.messages_models import Message
 
 def send_message_to_google_chats(message, webhook_url):
     headers = {
@@ -42,3 +43,38 @@ def schedule_message(message):
         print(f"Erro ao agendar a mensagem: {e}")
     except KeyError as e:
         print(f"Erro ao mapear o dia da semana: {e}")
+        
+        
+def get_scheduler_status(scheduler):
+    if scheduler.running:
+        return "Running"
+    else:
+        return "Stopped"
+    
+def get_weekly_jobs():
+    jobs = []
+    current_time = datetime.now(utc)
+
+    for job in scheduler.get_jobs():
+        job_time = job.next_run_time
+        if job_time and job_time >= current_time:
+            jobs.append(job)
+
+    return jobs
+
+
+
+def get_memory_usage():
+    process = psutil.Process()
+    mem_info = process.memory_info()
+    return mem_info.rss  # Memory usage in bytes
+
+import os
+
+def get_database_size(db_path):
+    return os.path.getsize(db_path)  # Tamanho em bytes
+
+def load_jobs_on_startup():
+    messages = Message.query.filter_by(active=True).all()
+    for message in messages:
+        schedule_message(message)

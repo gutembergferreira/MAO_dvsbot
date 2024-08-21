@@ -1,12 +1,35 @@
 {% extends 'base.html' %}
 
 {% block title %}MAO DVS BOT{% endblock %}
-{% block titlepage %}MAO DVS BOT{% endblock %}
+{% block titlepage %}C-3PO BOT MENSSAGER{% endblock %}
 
 {% block content %}
 
 <ul>
         <li>APP FOR SEND MESSAGES IN GOOGLE CHATS WEBHOOKS</li>
         <li>DEVELOPMENT BY DVS_MAO_TEAM</li>
-</ul>
+        <li>Scheduler Status: {% if scheduler_status == 'Running'%}<i class="material-icons" style="color: green; font-size: 25px;">published_with_changes</i> Running  {%else%} <i class="material-icons" style="color: red; font-size: 25px;">highlight_off</i> Stopped{% endif %}</li>
+        <li>Memory Usage: {{ memory_usage }} MB</li>
+        <li>Database Size: {{ database_size }} MB</li>
+    </ul>
+    
+    <h3>Jobs Scheduled/Executed This Week</h3>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Job ID</th>
+                <th>Name</th>
+                <th>Next Runtime</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in weekly_jobs %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td>{{ job.name }}</td>
+                <td>{{ job.next_run_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

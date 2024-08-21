@@ -3,7 +3,10 @@ from API.models.logs_models import Log
 
 def save_logger(action, response,feature,user=None,):
     if user is None:
-        user = request.remote_addr  # Se nenhum usuário for fornecido, use o endereço IP como padrão
+        try:
+            user = request.remote_addr  # Se nenhum usuário for fornecido, use o endereço IP como padrão
+        except:
+            user = 'localhost'
     # Criando uma nova instância de Log
     log_entry = Log(
         action=action,                # Ação realizada

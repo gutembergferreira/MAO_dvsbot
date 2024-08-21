@@ -1,9 +1,20 @@
+
+
 from app import *
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    scheduler_status = get_scheduler_status(scheduler)
+    weekly_jobs = get_weekly_jobs()
+    memory_usage = round(get_memory_usage() / (1024 * 1024), 2)   # Convertendo para MB
+    database_size = round(get_database_size(database_path) / (1024 * 1024), 2)  # Convertendo para MB
+
+    return render_template('index.html', 
+                           scheduler_status=scheduler_status,
+                           weekly_jobs=weekly_jobs,
+                           memory_usage=memory_usage,
+                           database_size=database_size)
 
 
 @app.route('/webhooks')
