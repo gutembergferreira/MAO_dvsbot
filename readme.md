@@ -86,4 +86,4 @@ Este projeto é uma aplicação web desenvolvida com Flask para agendar e gerenc
 
 9. **Licença**
 
-    Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para mais detalhes.
+    Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para mais detalhes..
