@@ -20,10 +20,6 @@ database_path = os.path.join(os.getcwd(), 'database', 'messages.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{database_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-        
-# Inicializar o banco de dados
-with app.app_context():
-    db.create_all()
 
 SCOPES = ["https://www.googleapis.com/auth/chat.bot"]
 SERVICE_ACCOUNT_FILE = 'credential/bot-monitor.json'
@@ -49,5 +45,8 @@ from API.models.logs_models import Log
 from API.router import webhooks_router,messages_router,htmls_router,brithdays_router,schedule_router
 
 with app.app_context():
-    load_jobs_on_startup()
-    
+    db.create_all()
+    try:
+        load_jobs_on_startup()
+    except:
+        pass

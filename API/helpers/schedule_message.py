@@ -15,8 +15,12 @@ def send_message_to_google_chats(message, webhook_url):
 # Função para agendar mensagens
 def schedule_message(message):
     try:
+        scheduler.remove_job(str(message.scheduler_job_id))
+    except:
+        pass
+    
+    try:
         hour, minute = map(int, message.send_time.split(':'))
-
         # Map the full weekday names to their short form
         day_map = {
             'monday': 'mon',
@@ -27,17 +31,15 @@ def schedule_message(message):
             'saturday': 'sat',
             'sunday': 'sun'
         }
-
         days = ','.join(day_map[day] for day in message.days_of_week.split(','))
-
         # Retrieve the associated webhook
         webhook = Webhook.query.get(message.webhook_id)
-
         # Create the cron trigger with the correct day and time
         trigger = CronTrigger(day_of_week=days, hour=hour, minute=minute)
-
         # Schedule the message with the correct webhook URL
-        scheduler.add_job(func=send_message_to_google_chats, trigger=trigger, args=[message.message, webhook.url])
+        job = scheduler.add_job(func=send_message_to_google_chats, trigger=trigger, args=[message.message, webhook.url])
+        message.scheduler_job_id = job.id
+        db.session.commit()
         save_logger('ADDITION/EDIT','Scheduler added successfully','SCHEDULER')
     except ValueError as e:
         print(f"Erro ao agendar a mensagem: {e}")
