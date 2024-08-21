@@ -23,14 +23,23 @@
             <input type="date" class="form-control" id="birthday_date" name="birthday_date" value="{{ birthday.birthday_date}}" required>
         </div>
     </div>
-    <label for="google_chat_id" class="form-label">Google Chat ID:</label>
     <div class="row mb-3">
         <div class="col-md-6">
+            <label for="google_chat_id" class="form-label">Google Chat ID:</label>
             <input type="text" class="form-control" id="google_chat_id" name="google_chat_id" value="{{ birthday.google_chat_id }}" required>
         </div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-success" style="width: 100%;">Update Birthday</button>
+            <label for="webhook_id" class="form-label">Bot:</label>
+            <select name="webhook_id" id="webhook_id" class="form-select" aria-label="Select Bot" required>
+                <option value="">Select Bot</option>
+                {% for webhook in webhooks %}
+                  <option value="{{ webhook.id }}" {% if webhook.id == birthday.webhook_id %}selected{% endif %}>{{ webhook.name }}</option>
+                {% endfor %}
+            </select>
         </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success" style="width: 30%;">Update Birthday</button>
     </div>
 </form>
 </div>

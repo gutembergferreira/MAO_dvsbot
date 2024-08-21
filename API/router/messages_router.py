@@ -69,11 +69,7 @@ def edit_message(message_id):
 @app.route('/delete/<int:message_id>', methods=['POST'])
 def delete_message(message_id):
     message = Message.query.get_or_404(message_id)
-    job_id = str(message_id)
-    if scheduler.get_job(job_id):
-        scheduler.remove_job(job_id)
-        save_logger('DELETE', 'Schedule deleted successfully', 'SCHEDULER', 'SCHEDULER DELETE')
-    # Salvar o log
+    delete_schedule_message(message)
     db.session.delete(message)
     db.session.commit()
     save_logger('DELETE','Message deleted successfully','MESSAGE', message.summary)

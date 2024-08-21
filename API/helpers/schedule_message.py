@@ -47,7 +47,13 @@ def schedule_message(message):
     except KeyError as e:
         print(f"Erro ao mapear o dia da semana: {e}")
         
-        
+def delete_schedule_message(message):
+    try:
+        scheduler.remove_job(str(message.scheduler_job_id))
+        save_logger('DELETE','Scheduler deleted successfully','SCHEDULER', message.summary)
+    except:
+        pass
+            
 def get_scheduler_status(scheduler):
     if scheduler.running:
         return "Running"
@@ -76,7 +82,7 @@ def get_database_size(db_path):
     return os.path.getsize(db_path)  # Tamanho em bytes
 
 
-def load_jobs_on_startup():
+def load_jobs_on_startup_message():
     messages = Message.query.filter_by(active=True).all()
     for message in messages:
         schedule_message(message)

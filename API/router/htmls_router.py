@@ -1,7 +1,4 @@
-
-
 from app import *
-
 
 @app.route('/')
 def index():
@@ -31,7 +28,8 @@ def messages():
 @app.route('/birthdays')
 def birthdays():
     all_birthdays = Birthday.query.all()
-    return render_template('birthdays.html', birthdays=all_birthdays)
+    all_webhooks = Webhook.query.all()
+    return render_template('birthdays.html', birthdays=all_birthdays, webhooks=all_webhooks)
 
 @app.route('/logs')
 def logs():

@@ -35,8 +35,8 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 from API.helpers.logger_save import save_logger
-from API.helpers.schedule_message import get_database_size, get_memory_usage, load_jobs_on_startup,schedule_message,send_message_to_google_chats,get_scheduler_status,get_weekly_jobs
-
+from API.helpers.schedule_message import get_database_size, get_memory_usage, load_jobs_on_startup_message,schedule_message,send_message_to_google_chats,get_scheduler_status,get_weekly_jobs, delete_schedule_message
+from API.helpers.schedule_birthday import load_jobs_on_startup_birthday, schedule_birthday, delete_schedule_birthday
 from API.models.webhooks_models import Webhook
 from API.models.messages_models import Message
 from API.models.birthdays_models import Birthday
@@ -47,6 +47,7 @@ from API.router import webhooks_router,messages_router,htmls_router,brithdays_ro
 with app.app_context():
     db.create_all()
     try:
-        load_jobs_on_startup()
+        load_jobs_on_startup_message()
+        load_jobs_on_startup_birthday()
     except:
         pass
