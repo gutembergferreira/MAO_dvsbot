@@ -10,7 +10,11 @@ import os
 from pytz import utc
 import psutil
 
-app = Flask(__name__)
+
+
+template_dir = os.path.abspath('./WEB/')
+static_dir = os.path.abspath('./WEB/static/')
+app = Flask(__name__,static_folder=static_dir, template_folder=template_dir)
 
 # Configuração do banco de dados SQLite
 # Caminho absoluto para o arquivo de banco de dados na pasta `database/`

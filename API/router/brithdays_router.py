@@ -34,7 +34,7 @@ def edit_birthday(birthday_id):
             schedule_birthday(birthday)
         return redirect(url_for('birthdays'))
     
-    return render_template('edit_birthday.html', birthday=birthday, webhooks=all_webhooks)
+    return render_template('pages/birthdays/edit_birthday.html', birthday=birthday, webhooks=all_webhooks)
 
 @app.route('/delete_birthday/<int:birthday_id>', methods=['POST'])
 def delete_birthday(birthday_id):

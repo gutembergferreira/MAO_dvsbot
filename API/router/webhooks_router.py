@@ -24,7 +24,7 @@ def edit_webhook(webhook_id):
         db.session.commit()
         save_logger('EDIT','Bot edited successfully','WEBHOOK', webhook.name)
         return redirect(url_for('webhooks'))
-    return render_template('edit_webhook.html', webhook=webhook)
+    return render_template('pages/webhooks/edit_webhook.html', webhook=webhook)
 
 
 @app.route('/delete_webhook/<int:webhook_id>', methods=['POST'])

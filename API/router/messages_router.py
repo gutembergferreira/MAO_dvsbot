@@ -63,7 +63,7 @@ def edit_message(message_id):
         return redirect(url_for('messages'))
     
     # Se o método for GET, renderiza a página de edição com os dados atuais da mensagem
-    return render_template('edit_message.html', message=message, all_webhooks=all_webhooks)
+    return render_template('pages/messages_weekly/edit_message.html', message=message, all_webhooks=all_webhooks)
 
 # Rota para excluir mensagem
 @app.route('/delete/<int:message_id>', methods=['POST'])

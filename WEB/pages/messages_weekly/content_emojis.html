@@ -1,0 +1,82 @@
+<div class="emoji-picker-container">
+    <button type="button" class="btn btn-outline-primary btn-sm" onclick="wrapText('message', '*', '*')">Negrito</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="wrapText('message', '_', '_')">Itálico</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="toggleEmojiPicker()">😊 Emojis</button>
+    <div id="emoji-picker" class="emoji-picker">
+        <div class="emoji-category-nav">
+            <button type="button" class="btn btn-sm" onclick="showCategory('smileys')">😀</button>
+            <button type="button" class="btn btn-sm" onclick="showCategory('gestures')">👍</button>
+            <button type="button" class="btn btn-sm" onclick="showCategory('objects')">🎉</button>
+            <button type="button" class="btn btn-sm" onclick="showCategory('nature')">🌍</button>
+            <button type="button" class="btn btn-sm" onclick="showCategory('travel')">✈️</button>
+        </div>
+        <div id="smileys" class="emoji-category active">
+            <span onclick="insertEmoji('😊')">😊</span>
+            <span onclick="insertEmoji('😂')">😂</span>
+            <span onclick="insertEmoji('😍')">😍</span>
+            <span onclick="insertEmoji('😢')">😢</span>
+            <span onclick="insertEmoji('😎')">😎</span>
+            <span onclick="insertEmoji('😡')">😡</span>
+            <span onclick="insertEmoji('😱')">😱</span>
+            <span onclick="insertEmoji('😴')">😴</span>
+            <span onclick="insertEmoji('😇')">😇</span>
+            <span onclick="insertEmoji('😘')">😘</span>
+            <span onclick="insertEmoji('😭')">😭</span>
+            <span onclick="insertEmoji('🤔')">🤔</span>
+            <span onclick="insertEmoji('🤗')">🤗</span>
+            <span onclick="insertEmoji('🤩')">🤩</span>
+            <span onclick="insertEmoji('😜')">😜</span>
+            <span onclick="insertEmoji('🤨')">🤨</span>
+        </div>
+        <div id="gestures" class="emoji-category">
+            <span onclick="insertEmoji('👍')">👍</span>
+            <span onclick="insertEmoji('👎')">👎</span>
+            <span onclick="insertEmoji('👏')">👏</span>
+            <span onclick="insertEmoji('🙏')">🙏</span>
+            <span onclick="insertEmoji('✌️')">✌️</span>
+            <span onclick="insertEmoji('👌')">👌</span>
+            <span onclick="insertEmoji('👊')">👊</span>
+            <span onclick="insertEmoji('🤝')">🤝</span>
+            <span onclick="insertEmoji('🙌')">🙌</span>
+            <span onclick="insertEmoji('🤘')">🤘</span>
+            <span onclick="insertEmoji('👋')">👋</span>
+        </div>
+        <div id="objects" class="emoji-category">
+            <span onclick="insertEmoji('🎉')">🎉</span>
+            <span onclick="insertEmoji('❤️')">❤️</span>
+            <span onclick="insertEmoji('💡')">💡</span>
+            <span onclick="insertEmoji('📅')">📅</span>
+            <span onclick="insertEmoji('📞')">📞</span>
+            <span onclick="insertEmoji('💻')">💻</span>
+            <span onclick="insertEmoji('✉️')">✉️</span>
+            <span onclick="insertEmoji('📎')">📎</span>
+            <span onclick="insertEmoji('🖊️')">🖊️</span>
+            <span onclick="insertEmoji('📚')">📚</span>
+        </div>
+        <div id="nature" class="emoji-category">
+            <span onclick="insertEmoji('🌞')">🌞</span>
+            <span onclick="insertEmoji('🌜')">🌜</span>
+            <span onclick="insertEmoji('🌟')">🌟</span>
+            <span onclick="insertEmoji('🔥')">🔥</span>
+            <span onclick="insertEmoji('💧')">💧</span>
+            <span onclick="insertEmoji('🌈')">🌈</span>
+            <span onclick="insertEmoji('🌍')">🌍</span>
+            <span onclick="insertEmoji('🐶')">🐶</span>
+            <span onclick="insertEmoji('🐱')">🐱</span>
+            <span onclick="insertEmoji('🐭')">🐭</span>
+            <span onclick="insertEmoji('🐼')">🐼</span>
+            <span onclick="insertEmoji('🦄')">🦄</span>
+        </div>
+        <div id="travel" class="emoji-category">
+            <span onclick="insertEmoji('🚗')">🚗</span>
+            <span onclick="insertEmoji('✈️')">✈️</span>
+            <span onclick="insertEmoji('🚀')">🚀</span>
+            <span onclick="insertEmoji('🚁')">🚁</span>
+            <span onclick="insertEmoji('🏠')">🏠</span>
+            <span onclick="insertEmoji('🏢')">🏢</span>
+            <span onclick="insertEmoji('🏖️')">🏖️</span>
+            <span onclick="insertEmoji('🌋')">🌋</span>
+        </div>
+    </div>
+</div>
+
