@@ -1,5 +1,3 @@
-credential/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -54,7 +52,8 @@ cover/
 # Flask stuff:
 instance/
 .webassets-cache
-database/
+DATABASE/messages.db
+CREDENTIAL/credential.json
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
